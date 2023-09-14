@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import AuthContext from "../store/auth-context";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const authCtx = useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -12,32 +16,48 @@ const Auth = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
     if (password === confirmPassword) {
+      setIsLoading(true);
+      let url;
       if (isLogin) {
+        url =
+          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCASb28ElCQEKerlpRr_iRzZ6mFyvyruOQ";
       } else {
-        fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCASb28ElCQEKerlpRr_iRzZ6mFyvyruOQ",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: email,
-              password: password,
-              returnSecureToken: true,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        ).then((res) => {
+        url =
+          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCASb28ElCQEKerlpRr_iRzZ6mFyvyruOQ";
+      }
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          setIsLoading(false);
           if (res.ok) {
+            return res.json();
           } else {
             res.json().then((data) => {
-              console.log(data);
+              //   console.log(data);
+              const err = "Failed";
+              throw new Error(err);
             });
           }
+        })
+        .then((data) => {
+          console.log(data);
+          authCtx.login(data.idToken)
+        })
+        .catch((error) => {
+          alert(error.message);
         });
-      }
+    }else{
+        alert("Please put the correct password")
     }
     setEmail("");
     setPassword("");
@@ -82,7 +102,10 @@ const Auth = () => {
           value={confirmPassword}
           onChange={confirmPasswordHandler}
         />
-        <button type="submit">{isLogin ? "Login" : "SignUp"}</button>
+        {!isLoading && (
+          <button type="submit">{isLogin ? "Login" : "SignUp"}</button>
+        )}
+        {isLoading && <p>Loading...</p>}
         <button onClick={switchAuthModeHandler}>
           {isLogin ? "Create new account" : "Login with existing account"}
         </button>
