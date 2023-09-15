@@ -43,7 +43,7 @@ section {
   padding: 6px;
 }
 
-.form input:active{
+.form input:focus{
     border: 2px solid green;
 }
 
@@ -62,13 +62,24 @@ section {
 
 .btn:hover{
     background: rgb(59, 155, 59);
+    box-shadow: 3px 3px 15px 1px rgb(184, 238, 184);
+}
+
+.passBtn{
+    border: none;
+    background: none;
+    margin: 2px auto;
+    font-size: 0.9em;
+    color: green;
+    cursor: pointer;
 }
 
 .modeBtn{
     border: none;
     background: none;
-    margin: 8px auto;
-    color: rgb(6, 83, 6);
-    font-size: 1em;
+    margin: 20px auto;
+    color: rgb(15, 164, 15);
+    font-weight: 300;
+    font-size: 1.1em;
     cursor: pointer;
 }

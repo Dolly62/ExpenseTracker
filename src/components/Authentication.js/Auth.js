@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../store/auth-context";
-import classes from "./Auth.module.css"
+import classes from "./Auth.module.css";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -15,19 +15,24 @@ const Auth = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    if (password === confirmPassword) {
-      setIsLoading(true);
-      let url;
-      if (isLogin) {
-        url =
-          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCASb28ElCQEKerlpRr_iRzZ6mFyvyruOQ";
-      } else {
+
+    setIsLoading(true);
+    let url;
+    if (isLogin) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCASb28ElCQEKerlpRr_iRzZ6mFyvyruOQ";
+    } else {
+      if (password === confirmPassword) {
         url =
           "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCASb28ElCQEKerlpRr_iRzZ6mFyvyruOQ";
+      } else {
+        alert("Please put the correct password");
       }
-      fetch(url, {
+    }
+    try {
+      const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
           email: email,
@@ -37,29 +42,20 @@ const Auth = () => {
         headers: {
           "Content-Type": "application/json",
         },
-      })
-        .then((res) => {
-          setIsLoading(false);
-          if (res.ok) {
-            return res.json();
-          } else {
-            res.json().then((data) => {
-              //   console.log(data);
-              const err = "Failed";
-              throw new Error(err);
-            });
-          }
-        })
-        .then((data) => {
-          console.log(data);
-          authCtx.login(data.idToken)
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
-    }else{
-        alert("Please put the correct password")
+      });
+      setIsLoading(false);
+      if (!response.ok) {
+        const data = await response.json();
+        let errMsg = "Authentication failed";
+        throw new Error(errMsg);
+      }
+      const data = await response.json();
+      console.log(data.idToken);
+      authCtx.login(data.idToken);
+    } catch (error) {
+      alert(error.message);
     }
+
     setEmail("");
     setPassword("");
     setConfirmPassword("");
@@ -95,20 +91,29 @@ const Auth = () => {
           value={password}
           onChange={passwordHandler}
         />
-        {!isLogin && <input
-          type="password"
-          id="confirmPassword"
-          placeholder="Confirm Password"
-          required
-          value={confirmPassword}
-          onChange={confirmPasswordHandler}
-        />}
+        {!isLogin && (
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            required
+            value={confirmPassword}
+            onChange={confirmPasswordHandler}
+          />
+        )}
         {!isLoading && (
-          <button className={classes.btn} type="submit">{isLogin ? "Login" : "SignUp"}</button>
+          <button className={classes.btn} type="submit">
+            {isLogin ? "Login" : "SignUp"}
+          </button>
         )}
         {isLoading && <p>Loading...</p>}
+        {isLogin && (
+          <button className={classes.passBtn}>Forget password</button>
+        )}
         <button className={classes.modeBtn} onClick={switchAuthModeHandler}>
-          {isLogin ? "Create new account" : "Login with existing account"}
+          {isLogin
+            ? "Don't have an account? SignUp "
+            : "Have an account? LogIn"}
         </button>
       </form>
     </section>
