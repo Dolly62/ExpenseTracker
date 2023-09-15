@@ -7,7 +7,7 @@ const Profile = () => {
   const [profileImg, setProfileImg] = useState("");
   const authCtx = useContext(AuthContext);
   const idtoken = authCtx.token;
-  console.log(idtoken);
+  // console.log(idtoken);
 
   const isLoggedIn = authCtx.isLoggedIn;
 

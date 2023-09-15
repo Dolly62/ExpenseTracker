@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../store/auth-context";
 import classes from "./Auth.module.css";
+import EmailVer from "./EmailVer";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,8 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const authCtx = useContext(AuthContext);
+  
+
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);

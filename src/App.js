@@ -4,6 +4,7 @@ import Expense from "./components/Expense/Expense";
 import AuthContext from "./components/store/auth-context";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import Profile from "./components/Expense/Profile";
+import EmailVer from "./components/Authentication.js/EmailVer";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -18,6 +19,7 @@ function App() {
           <Profile />
         </Route>}
       </Switch>
+      <EmailVer/>
     </div>
   );
 }
