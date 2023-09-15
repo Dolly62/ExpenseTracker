@@ -1,4 +1,3 @@
-import "./App.css";
 import Auth from "./components/Authentication.js/Auth";
 import { useContext } from "react";
 import Expense from "./components/Expense/Expense";

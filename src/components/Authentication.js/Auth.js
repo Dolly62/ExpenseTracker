@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../store/auth-context";
+import classes from "./Auth.module.css"
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -76,8 +77,8 @@ const Auth = () => {
 
   return (
     <section>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form onSubmit={submitHandler}>
+      <h1 className={classes.heading}>{isLogin ? "Login" : "Sign Up"}</h1>
+      <form onSubmit={submitHandler} className={classes.form}>
         <input
           type="email"
           id="email"
@@ -94,19 +95,19 @@ const Auth = () => {
           value={password}
           onChange={passwordHandler}
         />
-        <input
+        {!isLogin && <input
           type="password"
           id="confirmPassword"
           placeholder="Confirm Password"
           required
           value={confirmPassword}
           onChange={confirmPasswordHandler}
-        />
+        />}
         {!isLoading && (
-          <button type="submit">{isLogin ? "Login" : "SignUp"}</button>
+          <button className={classes.btn} type="submit">{isLogin ? "Login" : "SignUp"}</button>
         )}
         {isLoading && <p>Loading...</p>}
-        <button onClick={switchAuthModeHandler}>
+        <button className={classes.modeBtn} onClick={switchAuthModeHandler}>
           {isLogin ? "Create new account" : "Login with existing account"}
         </button>
       </form>
