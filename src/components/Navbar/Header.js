@@ -49,6 +49,20 @@ const Header = () => {
                     fontWeight: "bold",
                   }}
                 >
+                  <NavLink to="/expense" activeClassName={classes.active}>
+                    Expense
+                  </NavLink>
+                </Nav.Item>
+              )}
+              {isLoggedIn && (
+                <Nav.Item
+                  className="p-2 m-4 mx-3"
+                  style={{
+                    fontSize: "1.3rem",
+                    width: "6rem",
+                    fontWeight: "bold",
+                  }}
+                >
                   <NavLink to="/profileData" activeClassName={classes.active}>
                     Profile
                   </NavLink>

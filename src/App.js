@@ -9,6 +9,9 @@ import Header from "./components/Navbar/Header";
 import ProfileLink from "./components/Expense/ProfileLink";
 import classes from "./App.module.css";
 import ForgetPass from "./components/Authentication.js/ForgetPass";
+import ExpenseTracker from "./components/ExpenseTracker/ExpenseTracker";
+import { ExpenseContextProvider } from "./components/store/expense-context";
+import ExpenseList from "./components/ExpenseTracker/ExpenseList";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -16,35 +19,45 @@ function App() {
   const isLoggedIn = authCtx.isLoggedIn;
 
   return (
-    <div className={classes.app}>
-      <Header />
-      <Switch>
-        {isLoggedIn && (
-          <Route path="/home">
-            <Expense />
+    <ExpenseContextProvider>
+      <div className={classes.app}>
+        <Header />
+        <Switch>
+          {isLoggedIn && (
+            <Route path="/home">
+              <Expense />
+            </Route>
+          )}
+
+          {isLoggedIn && (
+            <Route path="/expense">
+              <ExpenseTracker />
+            </Route>
+          )}
+
+          {!isLoggedIn && (
+            <Route path="/login">
+              <Auth />
+            </Route>
+          )}
+          {isLoggedIn && (
+            <Route path="/profileData">
+              <ProfileLink />
+            </Route>
+          )}
+          {isLoggedIn && (
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          )}
+          <Route path="/reset-password">
+            <ForgetPass />
           </Route>
-        )}
-        {!isLoggedIn && (
-          <Route path="/login">
-            <Auth />
-          </Route>
-        )}
-        {isLoggedIn && (
-          <Route path="/profileData">
-            <ProfileLink />
-          </Route>
-        )}
-        {isLoggedIn && (
-          <Route path="/profile">
-            <Profile />
-          </Route>
-        )}
-        <Route path="/reset-password">
-          <ForgetPass/>
-        </Route>
-      </Switch>
-      <EmailVer/>
-    </div>
+        </Switch>
+        <ExpenseList/>
+        <EmailVer />
+      </div>
+    </ExpenseContextProvider>
   );
 }
 
