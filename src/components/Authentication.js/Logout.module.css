@@ -1,0 +1,8 @@
+.logoutBtn{
+    border: none;
+    border-radius: 6px;
+    background: #09653f;
+    color: white;
+    padding: 8px ;
+    font-weight: bold;
+}

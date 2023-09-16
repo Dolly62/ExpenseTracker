@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../store/auth-context";
 import classes from "./Auth.module.css";
+import { useHistory } from "react-router-dom";
+import Password from "./Password";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -9,7 +11,10 @@ const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
+  const history = useHistory();
+
   const authCtx = useContext(AuthContext);
+
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -52,6 +57,8 @@ const Auth = () => {
       const data = await response.json();
       console.log(data.idToken);
       authCtx.login(data.idToken);
+
+      history.replace("/home");
     } catch (error) {
       alert(error.message);
     }
@@ -107,9 +114,7 @@ const Auth = () => {
           </button>
         )}
         {isLoading && <p>Loading...</p>}
-        {isLogin && (
-          <button className={classes.passBtn}>Forget password</button>
-        )}
+        {isLogin && <Password/>}
         <button className={classes.modeBtn} onClick={switchAuthModeHandler}>
           {isLogin
             ? "Don't have an account? SignUp "

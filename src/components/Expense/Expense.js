@@ -11,14 +11,6 @@ const Expense = () => {
   return (
     <div className={classes.main}>
       {isLoggedIn && <h1>Welcome to Expense Tracker</h1>}
-      {isLoggedIn && (
-        <p style={{ marginLeft: "auto" }}>
-          Your profile is Incomplete.{" "}
-          <NavLink to="/profile">Complete now</NavLink>
-        </p>
-      )}
-      <NavLink to="/login">Login</NavLink>
-      <Logout />
     </div>
   );
 };

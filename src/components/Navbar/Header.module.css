@@ -1,0 +1,17 @@
+.navmain{
+    width: 100%;
+    align-items: center;
+    background: #00a36a;
+    box-shadow: 3px 3px 15px 1px rgb(220, 245, 220);;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: rgb(204, 202, 202);
+}
+.navbar a:hover,
+.navbar a:active,
+.navbar a.active{
+    color: rgb(254, 254, 252);
+    /* text-decoration: underline; */
+}
