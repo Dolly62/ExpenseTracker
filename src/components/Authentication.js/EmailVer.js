@@ -3,7 +3,7 @@ import AuthContext from "../store/auth-context";
 
 const EmailVer = () => {
   const authCtx = useContext(AuthContext);
-
+  
   const idtoken = authCtx.token;
   const isLoggedIn = authCtx.isLoggedIn;
 
@@ -29,16 +29,19 @@ const EmailVer = () => {
       }
       const data = await response.json();
       console.log(data.email);
+      alert("Verification email sent successfully");
     } catch (error) {
       alert(error.message);
     }
   };
+
+
   return (
     <React.Fragment>
       {isLoggedIn && (
-        <button onClick={emailVerificationHandler}>
-          Send Verification Email
-        </button>
+          <button onClick={emailVerificationHandler}>
+            Send Verification Email
+          </button>
       )}
     </React.Fragment>
   );

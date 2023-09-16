@@ -1,5 +1,5 @@
 import Auth from "./components/Authentication.js/Auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Expense from "./components/Expense/Expense";
 import AuthContext from "./components/store/auth-context";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
@@ -10,16 +10,23 @@ function App() {
   const authCtx = useContext(AuthContext);
 
   const isLoggedIn = authCtx.isLoggedIn;
+
   return (
     <div className="App">
-      {!isLoggedIn && <Auth />}
       {isLoggedIn && <Expense />}
       <Switch>
-        {isLoggedIn && <Route path="/profile">
-          <Profile />
-        </Route>}
+        {!isLoggedIn && (
+          <Route path="/login">
+            <Auth />
+          </Route>
+        )}
+        {isLoggedIn && (
+          <Route path="/profile">
+            <Profile />
+          </Route>
+        )}
       </Switch>
-      <EmailVer/>
+      <EmailVer />
     </div>
   );
 }

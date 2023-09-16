@@ -64,7 +64,7 @@ const Profile = () => {
         throw new Error("Failed to get");
       }
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       if (data.users && data.users.length > 0) {
         const user = data.users[0];
