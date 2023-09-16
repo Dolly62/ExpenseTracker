@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
 import classes from "./Expense.module.css";
-import Logout from "../Authentication.js/Logout";
 import AuthContext from "../store/auth-context";
 
 const Expense = () => {

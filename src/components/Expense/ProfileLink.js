@@ -1,6 +1,5 @@
 import React, { Fragment, useContext } from "react";
 import AuthContext from "../store/auth-context";
-import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const ProfileLink = () => {

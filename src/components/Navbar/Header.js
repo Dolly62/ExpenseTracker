@@ -28,10 +28,10 @@ const Header = () => {
             <Nav className={classes.navbar}>
               {isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-4 mx-2"
+                  className="p-2 m-4 mx-3"
                   style={{
                     fontSize: "1.3rem",
-                    width: "8rem",
+                    width: "6rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -42,10 +42,10 @@ const Header = () => {
               )}
               {isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-4 mx-2"
+                  className="p-2 m-4 mx-3"
                   style={{
                     fontSize: "1.3rem",
-                    width: "8rem",
+                    width: "6rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -56,10 +56,10 @@ const Header = () => {
               )}
               {!isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-4 mx-2"
+                  className="p-2 m-4 mx-3"
                   style={{
                     fontSize: "1.3rem",
-                    width: "8rem",
+                    width: "6rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -69,11 +69,7 @@ const Header = () => {
                 </Nav.Item>
               )}
               {isLoggedIn && (
-                <Nav.Item
-                  className="p-2 m-4 mx-2"
-                >
                   <Logout />
-                </Nav.Item>
               )}
             </Nav>
           </Navbar.Collapse>

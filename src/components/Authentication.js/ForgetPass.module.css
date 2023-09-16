@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 80px auto;
+}
+
+.container p {
+  margin: 20px auto;
+}
+.container input {
+  width: 70%;
+  margin: 5px auto;
+  border: 2px solid #00a36a;
+  border-radius: 8px;
+  height: 6vh;
+  font-size: 1.2rem;
+}
+
+.container button {
+  margin: 20px auto;
+  width: 60%;
+  border: none;
+  border-radius: 8px;
+  background: #00a36a;
+  color: white;
+  height: 6vh;
+  font-weight: bold;
+}
+
+.container button:hover {
+  background: rgb(59, 155, 59);
+}

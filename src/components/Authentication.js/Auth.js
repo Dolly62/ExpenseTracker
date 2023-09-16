@@ -51,8 +51,7 @@ const Auth = () => {
       setIsLoading(false);
       if (!response.ok) {
         const data = await response.json();
-        let errMsg = "Authentication failed";
-        throw new Error(errMsg);
+        throw new Error(data.error.message);
       }
       const data = await response.json();
       console.log(data.idToken);

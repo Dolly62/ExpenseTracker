@@ -38,7 +38,6 @@ const EmailVer = () => {
   return (
     <React.Fragment>
       <form>
-        <input type="email" id="email" placeholder="Enter your email" required />
         {isLoggedIn && (
           <button onClick={emailVerificationHandler}>
             Send Verification Email

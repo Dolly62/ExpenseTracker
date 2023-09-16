@@ -3,6 +3,8 @@
     border-radius: 6px;
     background: #09653f;
     color: white;
-    padding: 8px ;
+    padding: 9px 10px ;
+    margin: 26px auto;
+    height: 6vh;
     font-weight: bold;
 }
