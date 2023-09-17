@@ -1,5 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, Fragment } from "react";
 import ExpenseContext from "../store/expense-context";
+import ExpenseList from "./ExpenseList";
+import classes from "./ExpenseTracker.module.css";
 
 const ExpenseTracker = () => {
   const [spentMoney, setSpentMoney] = useState("");
@@ -30,8 +32,9 @@ const ExpenseTracker = () => {
     setCategory(event.target.value);
   };
   return (
-    <div>
-      <h1>Daily Expenses</h1>
+    <Fragment>
+    <section className={classes.container}>
+      <h1>Add Your Daily Expense</h1>
       <form onSubmit={expenseHandler}>
         <input
           type="number"
@@ -60,7 +63,9 @@ const ExpenseTracker = () => {
         </select>
         <button type="submit">Add Expense</button>
       </form>
-    </div>
+    </section>
+      <ExpenseList/>
+    </Fragment>
   );
 };
 

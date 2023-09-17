@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
 import ExpenseContext from "../store/expense-context";
+import AuthContext from "../store/auth-context";
 
 const ExpenseList = () => {
   const expCtx = useContext(ExpenseContext);
+  const authCtx = useContext(AuthContext);
+
+  const isLoggedIn = authCtx.isLoggedIn;
 
   return (
-    <div>
+    <section>
+      {isLoggedIn}
       <h2>Day-to-Day Expenses</h2>
       <ul>
         {expCtx.expenses.map((expense) => (
@@ -14,7 +19,7 @@ const ExpenseList = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 };
 

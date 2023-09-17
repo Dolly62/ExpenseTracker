@@ -8,7 +8,8 @@
   margin: 20px auto;
 }
 .container input {
-  width: 70%;
+  width: 90%;
+  max-width: 100%;
   margin: 5px auto;
   border: 2px solid #00a36a;
   border-radius: 8px;
@@ -25,6 +26,7 @@
   color: white;
   height: 6vh;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .container button:hover {

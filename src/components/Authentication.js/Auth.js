@@ -57,7 +57,7 @@ const Auth = () => {
       console.log(data.idToken);
       authCtx.login(data.idToken);
 
-      history.replace("/home");
+      history.push("/email-Verification");
     } catch (error) {
       alert(error.message);
     }

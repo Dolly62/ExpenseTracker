@@ -11,7 +11,6 @@ import classes from "./App.module.css";
 import ForgetPass from "./components/Authentication.js/ForgetPass";
 import ExpenseTracker from "./components/ExpenseTracker/ExpenseTracker";
 import { ExpenseContextProvider } from "./components/store/expense-context";
-import ExpenseList from "./components/ExpenseTracker/ExpenseList";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -50,12 +49,17 @@ function App() {
               <Profile />
             </Route>
           )}
-          <Route path="/reset-password">
-            <ForgetPass />
-          </Route>
+          {isLoggedIn && (
+            <Route path="/email-Verification">
+              <EmailVer />
+            </Route>
+          )}
+          {!isLoggedIn && (
+            <Route path="/reset-password">
+              <ForgetPass />
+            </Route>
+          )}
         </Switch>
-        <ExpenseList/>
-        <EmailVer />
       </div>
     </ExpenseContextProvider>
   );
