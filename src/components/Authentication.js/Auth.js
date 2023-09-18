@@ -48,7 +48,6 @@ const Auth = () => {
           "Content-Type": "application/json",
         },
       });
-      setIsLoading(false);
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.error.message);
@@ -60,6 +59,8 @@ const Auth = () => {
       history.push("/email-Verification");
     } catch (error) {
       alert(error.message);
+    } finally{
+      setIsLoading(false)
     }
 
     setEmail("");

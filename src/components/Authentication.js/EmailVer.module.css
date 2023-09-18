@@ -1,0 +1,13 @@
+.btn {
+  border: none;
+  border-radius: 6px;
+  background: rgb(202, 202, 0);
+  height: 7vh;
+  font-size: 100%;
+  font-weight: bold;
+  color: white;
+}
+
+.btn:hover{
+    background-color:  #02bd7c;
+}

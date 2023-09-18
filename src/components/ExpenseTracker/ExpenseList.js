@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import ExpenseContext from "../store/expense-context";
 import AuthContext from "../store/auth-context";
+import Expenses from "./Expenses";
 
 const ExpenseList = () => {
   const expCtx = useContext(ExpenseContext);
@@ -8,16 +9,27 @@ const ExpenseList = () => {
 
   const isLoggedIn = authCtx.isLoggedIn;
 
+  // const expenseHandler = (expenses) => {
+  //   expCtx.addExpenses(expenses)
+  // }
   return (
     <section>
       {isLoggedIn}
-      <h2>Day-to-Day Expenses</h2>
+      <h3>Day-to-Day Expenses</h3>
       <ul>
-        {expCtx.expenses.map((expense) => (
-          <li key={expense.id}>
-            {expense.money} - {expense.description} - {expense.category}
-          </li>
-        ))}
+        {expCtx.expenses && expCtx.expenses.length > 0 ? (
+          expCtx.expenses.map((expense) => (
+            <Expenses
+              id={expense.id}
+              money={expense.money}
+              description={expense.description}
+              category={expense.category}
+              // onAdd={expenseHandler.bind(null, expense)}
+            />
+          ))
+        ) : (
+          <p>No Expense is found</p>
+        )}
       </ul>
     </section>
   );

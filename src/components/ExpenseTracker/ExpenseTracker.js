@@ -9,14 +9,34 @@ const ExpenseTracker = () => {
   const [category, setCategory] = useState("Vegetables");
   const expCtx = useContext(ExpenseContext);
 
-  const expenseHandler = (event) => {
+  const expenseHandler = async (event) => {
     event.preventDefault();
-    expCtx.addExpenses({
+    const expenseForm = {
       id: Math.random().toString(),
       money: spentMoney,
       description: spentDescription,
       category: category,
-    });
+    };
+    try {
+      const response = await fetch(
+        "https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses.json",
+        {
+          method: "POST",
+          body: JSON.stringify(expenseForm),
+        }
+      );
+      const data = await response.json();
+      // console.log(data.name);
+      expCtx.addExpenses({
+        name: data.name,
+        money: spentMoney,
+        description: spentDescription,
+        category: category,
+      });
+    } catch (error) {
+      alert(error);
+    }
+
     setSpentMoney("");
     setSpentDescription("");
     setCategory("Vegetable");
@@ -33,38 +53,38 @@ const ExpenseTracker = () => {
   };
   return (
     <Fragment>
-    <section className={classes.container}>
-      <h1>Add Your Daily Expense</h1>
-      <form onSubmit={expenseHandler}>
-        <input
-          type="number"
-          placeholder="Enter the money you spent"
-          required
-          value={spentMoney}
-          onChange={spentMoneyHandler}
-        />
-        <input
-          type="text"
-          placeholder="Description..."
-          required
-          value={spentDescription}
-          onChange={spentDescriptionHandler}
-        />
-        <select
-          name="Category"
-          value={category}
-          onChange={categoryChangeHandler}
-        >
-          <option value="fruits">Fruits</option>
-          <option value="vegetables">Vegetables</option>
-          <option value="petrol">Petrol</option>
-          <option value="health">Health</option>
-          <option value="drink">Drink</option>
-        </select>
-        <button type="submit">Add Expense</button>
-      </form>
-    </section>
-      <ExpenseList/>
+      <section className={classes.container}>
+        <h2>Add Your Daily Expense</h2>
+        <form onSubmit={expenseHandler}>
+          <input
+            type="number"
+            placeholder="Enter the money you spent"
+            required
+            value={spentMoney}
+            onChange={spentMoneyHandler}
+          />
+          <input
+            type="text"
+            placeholder="Description..."
+            required
+            value={spentDescription}
+            onChange={spentDescriptionHandler}
+          />
+          <select
+            name="Category"
+            value={category}
+            onChange={categoryChangeHandler}
+          >
+            <option value="fruits">Fruits</option>
+            <option value="vegetables">Vegetables</option>
+            <option value="petrol">Petrol</option>
+            <option value="health">Health</option>
+            <option value="drink">Drink</option>
+          </select>
+          <button type="submit">Add Expense</button>
+        </form>
+      </section>
+      <ExpenseList />
     </Fragment>
   );
 };

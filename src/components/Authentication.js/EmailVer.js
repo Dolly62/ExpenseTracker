@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../store/auth-context";
 import { useHistory } from "react-router-dom";
+import classes from "./EmailVer.module.css";
 
 const EmailVer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const authCtx = useContext(AuthContext);
 
   const idtoken = authCtx.token;
-  const isLoggedIn = authCtx.isLoggedIn;
+  // const isLoggedIn = authCtx.isLoggedIn;
 
   const history = useHistory();
 
@@ -47,7 +48,7 @@ const EmailVer = () => {
   return (
     <React.Fragment>
       <section>
-          <button onClick={emailVerificationHandler} disabled={isLoading}>
+          <button className={classes.btn} onClick={emailVerificationHandler} disabled={isLoading}>
             {isLoading ? "Sending..." : "Send Verification Email"}
           </button>
       </section>
