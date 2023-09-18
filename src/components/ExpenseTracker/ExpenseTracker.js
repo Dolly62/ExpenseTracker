@@ -29,6 +29,7 @@ const ExpenseTracker = () => {
       // console.log(data.name);
       expCtx.addExpenses({
         name: data.name,
+        // id: Math.random().toString(),
         money: spentMoney,
         description: spentDescription,
         category: category,
@@ -79,7 +80,7 @@ const ExpenseTracker = () => {
             <option value="vegetables">Vegetables</option>
             <option value="petrol">Petrol</option>
             <option value="health">Health</option>
-            <option value="drink">Drink</option>
+            <option value="Drink">Drink</option>
           </select>
           <button type="submit">Add Expense</button>
         </form>

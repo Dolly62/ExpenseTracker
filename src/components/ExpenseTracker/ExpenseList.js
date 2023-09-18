@@ -1,31 +1,44 @@
 import React, { useContext } from "react";
 import ExpenseContext from "../store/expense-context";
 import AuthContext from "../store/auth-context";
-import Expenses from "./Expenses";
+// import Expenses from "./Expenses";
 
 const ExpenseList = () => {
   const expCtx = useContext(ExpenseContext);
-  const authCtx = useContext(AuthContext);
+  // const authCtx = useContext(AuthContext);
 
-  const isLoggedIn = authCtx.isLoggedIn;
+  // const isLoggedIn = authCtx.isLoggedIn;
 
-  // const expenseHandler = (expenses) => {
-  //   expCtx.addExpenses(expenses)
-  // }
+  const deleteExpense = async (name) => {
+    try {
+      const response = await fetch(
+        `https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses/${name}.json`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete");
+      }
+      expCtx.removeExpense(name);
+      // console.log("succefully deleted from db");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+
   return (
     <section>
-      {isLoggedIn}
+      {/* {isLoggedIn} */}
       <h3>Day-to-Day Expenses</h3>
       <ul>
         {expCtx.expenses && expCtx.expenses.length > 0 ? (
           expCtx.expenses.map((expense) => (
-            <Expenses
-              id={expense.id}
-              money={expense.money}
-              description={expense.description}
-              category={expense.category}
-              // onAdd={expenseHandler.bind(null, expense)}
-            />
+            <li key={expense.name}>
+              {expense.money} - {expense.description} - {expense.category} -{" "}
+              <button onClick={() => deleteExpense(expense.name)}>Delete</button>
+            </li>
           ))
         ) : (
           <p>No Expense is found</p>

@@ -1,5 +1,6 @@
 .navmain{
     width: 100%;
+    max-width: 100%;
     align-items: center;
     background: #00a36a;
     box-shadow: 3px 3px 30px 1px rgb(192, 236, 214);

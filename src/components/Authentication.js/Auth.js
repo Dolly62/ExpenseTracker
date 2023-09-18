@@ -53,7 +53,7 @@ const Auth = () => {
         throw new Error(data.error.message);
       }
       const data = await response.json();
-      console.log(data.idToken);
+      // console.log(data.idToken);
       authCtx.login(data.idToken);
 
       history.push("/email-Verification");
