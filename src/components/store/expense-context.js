@@ -12,8 +12,18 @@ export const ExpenseContextProvider = (props) => {
 
   const authCtx = useContext(AuthContext);
 
-  const addExpenseHandler = (expenses) => {
-    setExpenses((prevExpenses) => [...prevExpenses, {...expenses, name: expenses.name}]);
+  const addExpenseHandler = (expensesItem) => {
+  const existingExpense = expenses.find((existExpense) => existExpense.name === expensesItem.name)
+  // console.log(existingExpense);
+
+  if(existingExpense){
+    setExpenses((prevExpenses) => prevExpenses.map((expen) => expen.name === existingExpense.name ? {
+      ...expen
+    } : expen))
+  } else{
+    setExpenses((prevExpenses) => [...prevExpenses, {...expensesItem, name: expensesItem.name}]);
+  }
+
     // console.log(expenses.id);
   };
 

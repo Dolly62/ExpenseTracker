@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ExpenseContext from "../store/expense-context";
-import AuthContext from "../store/auth-context";
-// import Expenses from "./Expenses";
+// import AuthContext from "../store/auth-context";
 
-const ExpenseList = () => {
+const ExpenseList = (props) => {
   const expCtx = useContext(ExpenseContext);
   // const authCtx = useContext(AuthContext);
 
@@ -27,7 +26,6 @@ const ExpenseList = () => {
     }
   };
 
-
   return (
     <section>
       {/* {isLoggedIn} */}
@@ -37,7 +35,10 @@ const ExpenseList = () => {
           expCtx.expenses.map((expense) => (
             <li key={expense.name}>
               {expense.money} - {expense.description} - {expense.category} -{" "}
-              <button onClick={() => deleteExpense(expense.name)}>Delete</button>
+              <button onClick={() => props.onEdit(expense)}>Edit</button>
+              <button onClick={() => deleteExpense(expense.name)}>
+                Delete
+              </button>
             </li>
           ))
         ) : (
