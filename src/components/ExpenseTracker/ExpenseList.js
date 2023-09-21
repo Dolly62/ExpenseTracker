@@ -1,12 +1,47 @@
-import React, { useContext, useState } from "react";
-import ExpenseContext from "../store/expense-context";
+import React, { useEffect } from "react";
+import { expenseActions } from "../store/expense-context";
+import { useDispatch, useSelector } from "react-redux";
 // import AuthContext from "../store/auth-context";
 
 const ExpenseList = (props) => {
-  const expCtx = useContext(ExpenseContext);
-  // const authCtx = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const expenses = useSelector((state) => state.expenses.items);
+  const isLoggedIn = useSelector((state => state.auth.isLoggedIn));
 
-  // const isLoggedIn = authCtx.isLoggedIn;
+  const totalAmount = (expenses || []).reduce((total, item) => {
+    const itemMoney = parseFloat(item.money);
+      return total + itemMoney;
+  }, 0);
+
+
+  const fetchExpensesHandler = async () => {
+    try {
+      const response = await fetch(
+        "https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses.json"
+      );
+      const data = await response.json();
+      console.log(data);
+      console.log(data.key);
+      if(data){
+        const expenseItems = Object.keys(data).map((key) => ({
+          name: key,
+          id: data[key].id,
+          money: data[key].money,
+          description: data[key].description,
+          category: data[key].category,
+        }))
+        dispatch(expenseActions.addExpenses(expenseItems));
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  useEffect(() => {
+    if(isLoggedIn){
+      fetchExpensesHandler()
+    }
+  }, [isLoggedIn])
 
   const deleteExpense = async (name) => {
     try {
@@ -19,7 +54,8 @@ const ExpenseList = (props) => {
       if (!response.ok) {
         throw new Error("Failed to delete");
       }
-      expCtx.removeExpense(name);
+      // expCtx.removeExpense(name);
+      dispatch(expenseActions.removeExpense(name));
       // console.log("succefully deleted from db");
     } catch (error) {
       alert(error.message);
@@ -31,8 +67,8 @@ const ExpenseList = (props) => {
       {/* {isLoggedIn} */}
       <h3>Day-to-Day Expenses</h3>
       <ul>
-        {expCtx.expenses && expCtx.expenses.length > 0 ? (
-          expCtx.expenses.map((expense) => (
+        {expenses && expenses.length > 0 ? (
+          expenses.map((expense) => (
             <li key={expense.name}>
               {expense.money} - {expense.description} - {expense.category} -{" "}
               <button onClick={() => props.onEdit(expense)}>Edit</button>
@@ -45,6 +81,9 @@ const ExpenseList = (props) => {
           <p>No Expense is found</p>
         )}
       </ul>
+      <div>
+        Total Amount: <span>Rs.${totalAmount.toFixed(2)}</span>
+      </div>
     </section>
   );
 };

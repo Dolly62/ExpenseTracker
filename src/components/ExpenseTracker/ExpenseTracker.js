@@ -1,19 +1,30 @@
-import React, { useState, useContext, Fragment } from "react";
-import ExpenseContext from "../store/expense-context";
+import React, { useState, Fragment } from "react";
+import { expenseActions } from "../store/expense-context";
 import ExpenseList from "./ExpenseList";
 import classes from "./ExpenseTracker.module.css";
+import { useDispatch } from "react-redux";
 
 const ExpenseTracker = () => {
   const [spentMoney, setSpentMoney] = useState("");
   const [spentDescription, setSpentDescription] = useState("");
   const [category, setCategory] = useState("");
-  const expCtx = useContext(ExpenseContext);
+  // const expCtx = useContext(ExpenseContext);
+
+  const dispatch = useDispatch();
 
   //For EDIT
   const [editExpenseName, setEditExpenseName] = useState(null);
   const [editMoney, setEditMoney] = useState("");
   const [editDescription, setEditDescription] = useState("");
   const [editCategory, setEditCategory] = useState("");
+
+  const editExpenseHandler = (expense) => {
+    // console.log(expense.name);
+    setEditExpenseName(expense.name);
+    setEditMoney(expense.money);
+    setEditDescription(expense.description);
+    setEditCategory(expense.category);
+  };
 
   const expenseHandler = async (event) => {
     event.preventDefault();
@@ -28,7 +39,8 @@ const ExpenseTracker = () => {
       money: editMoney,
       description: editDescription,
       category: editCategory,
-    }
+    };
+
     try {
       if (editExpenseName === null) {
         const response = await fetch(
@@ -40,28 +52,45 @@ const ExpenseTracker = () => {
         );
         const data = await response.json();
         // console.log(data.name);
-        expCtx.addExpenses({
-          name: data.name,
-          // id: Math.random().toString(),
-          money: spentMoney,
-          description: spentDescription,
-          category: category,
-        });
+        dispatch(
+          expenseActions.addExpenses({
+            name: data.name,
+            money: spentMoney,
+            description: spentDescription,
+            category: category,
+          })
+        );
+        // expCtx.addExpenses({
+        //   name: data.name,
+        //   // id: Math.random().toString(),
+        //   money: spentMoney,
+        //   description: spentDescription,
+        //   category: category,
+        // });
       } else {
         const response = await fetch(
           `https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses/${editExpenseName}.json`,
           {
             method: "PUT",
-            body: JSON.stringify(updatedExpenseForm)
+            body: JSON.stringify(updatedExpenseForm),
           }
         );
         const data = await response.json();
-        expCtx.addExpenses({
-          name: editExpenseName,
-          money: editMoney,
-          description: editDescription,
-          category: editCategory,
-        });
+        if (editExpenseName !== null) {
+          const updatedExpense = {
+            name: editExpenseName,
+            money: editMoney,
+            description: editDescription,
+            category: editCategory,
+          };
+          dispatch(expenseActions.addExpenses(updatedExpense));
+        }
+        // expCtx.addExpenses({
+        //   name: editExpenseName,
+        //   money: editMoney,
+        //   description: editDescription,
+        //   category: editCategory,
+        // });
       }
     } catch (error) {
       alert(error);
@@ -83,14 +112,6 @@ const ExpenseTracker = () => {
   };
   const categoryChangeHandler = (event) => {
     setCategory(event.target.value);
-  };
-
-  const editExpenseHandler = (expense) => {
-    // console.log(expense.name);
-    setEditExpenseName(expense.name);
-    setEditMoney(expense.money);
-    setEditDescription(expense.description);
-    setEditCategory(expense.category);
   };
 
   return (
