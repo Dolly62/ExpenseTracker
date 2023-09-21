@@ -1,0 +1,8 @@
+.premiumBtn{
+    border: none;
+    border-radius: 6px;
+    background: #FFD700;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem;
+}

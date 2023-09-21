@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
-import AuthContext from "../store/auth-context";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import classes from "./EmailVer.module.css";
+import { useSelector } from "react-redux";
 
 const EmailVer = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const authCtx = useContext(AuthContext);
+  const idtoken = useSelector(state => state.auth.token);
+  // console.log(idtoken);
 
-  const idtoken = authCtx.token;
-  // const isLoggedIn = authCtx.isLoggedIn;
+  
 
   const history = useHistory();
 

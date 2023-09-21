@@ -1,15 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import AuthContext from "../store/auth-context";
+import React, { useEffect, useState } from "react";
+import { Alert } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [enteredFullName, setFullName] = useState("");
   const [profileImg, setProfileImg] = useState("");
-  const authCtx = useContext(AuthContext);
-  const idtoken = authCtx.token;
+  const [success, setSuccess] = useState(false);
+  // const authCtx = useContext(AuthContext);
+  // const idtoken = authCtx.token;
   // console.log(idtoken);
 
-  const isLoggedIn = authCtx.isLoggedIn;
+  const idtoken = useSelector(state => state.auth.token);
+  // console.log(idtoken);
+
+  
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
+  // const isLoggedIn = authCtx.isLoggedIn;
 
   const updateProfileHandler = async (event) => {
     event.preventDefault();
@@ -36,9 +43,14 @@ const Profile = () => {
         throw new Error(profileErr);
       }
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       alert(error.message);
+    } finally{
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+      }, 2000);
     }
     // setFullName("");
     // setProfileImg("")
@@ -89,7 +101,7 @@ const Profile = () => {
     setProfileImg(event.target.value);
   };
   return (
-    <div>
+    <section>
       <h2>Contact Details</h2>
       <form onSubmit={updateProfileHandler}>
         <label htmlFor="fullname">Full Name:</label>
@@ -109,8 +121,9 @@ const Profile = () => {
           onChange={profileImgHandler}
         />
         <button type="submit">Update</button>
+        {success && (<Alert variant="success" className="mt-3">Successfully Updated!</Alert>)}
       </form>
-    </div>
+    </section>
   );
 };
 

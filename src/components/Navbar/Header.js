@@ -4,11 +4,14 @@ import Logout from "../Authentication.js/Logout";
 import AuthContext from "../store/auth-context";
 import classes from "./Header.module.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import Premium from "../Expense/Premium";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const authCtx = useContext(AuthContext);
+  // const authCtx = useContext(AuthContext);
+ const isLoggedIn =  useSelector(state => state.auth.isLoggedIn);
 
-  const isLoggedIn = authCtx.isLoggedIn;
+  // const isLoggedIn = authCtx.isLoggedIn;
 
   return (
     <Fragment>
@@ -83,7 +86,28 @@ const Header = () => {
                 </Nav.Item>
               )}
               {isLoggedIn && (
+                <Nav.Item
+                  className="p-2 m-4 mx-3"
+                  style={{
+                    fontSize: "1.3rem",
+                    width: "6rem",
+                    fontWeight: "bold",
+                  }}
+                >
                   <Logout />
+                </Nav.Item>
+              )}
+              {!isLoggedIn && (
+                <Nav.Item
+                  className="p-2 m-4 mx-3"
+                  style={{
+                    fontSize: "1.3rem",
+                    width: "6rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  <Premium />
+                </Nav.Item>
               )}
             </Nav>
           </Navbar.Collapse>

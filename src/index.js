@@ -5,6 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./components/store/auth-context";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./components/store/oneStore";
 
 import "../node_modules/react-bootstrap/dist/react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
@@ -13,9 +15,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthContextProvider>
+      {/* <AuthContextProvider> */}
+      <Provider store={store}>
         <App />
-      </AuthContextProvider>
+      </Provider>
+      {/* </AuthContextProvider> */}
     </BrowserRouter>
   </React.StrictMode>
 );

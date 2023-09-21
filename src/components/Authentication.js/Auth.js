@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
-import AuthContext from "../store/auth-context";
+import React, { useState } from "react";
 import classes from "./Auth.module.css";
 import { useHistory } from "react-router-dom";
 import Password from "./Password";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/auth-context";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,8 @@ const Auth = () => {
 
   const history = useHistory();
 
-  const authCtx = useContext(AuthContext);
+  const dispatch = useDispatch();
+  // const authCtx = useContext(AuthContext);
 
 
   const switchAuthModeHandler = () => {
@@ -54,7 +56,7 @@ const Auth = () => {
       }
       const data = await response.json();
       // console.log(data.idToken);
-      authCtx.login(data.idToken);
+      dispatch(authActions.login({token: data.idToken}));
 
       history.push("/email-Verification");
     } catch (error) {

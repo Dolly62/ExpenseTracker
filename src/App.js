@@ -1,7 +1,7 @@
 import Auth from "./components/Authentication.js/Auth";
-import { useContext } from "react";
+// import { useContext } from "react";
 import Expense from "./components/Expense/Expense";
-import AuthContext from "./components/store/auth-context";
+// import AuthContext from "./components/store/auth-context";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import Profile from "./components/Expense/Profile";
 import EmailVer from "./components/Authentication.js/EmailVer";
@@ -10,15 +10,15 @@ import ProfileLink from "./components/Expense/ProfileLink";
 import classes from "./App.module.css";
 import ForgetPass from "./components/Authentication.js/ForgetPass";
 import ExpenseTracker from "./components/ExpenseTracker/ExpenseTracker";
-import { ExpenseContextProvider } from "./components/store/expense-context";
+// import { ExpenseContextProvider } from "./components/store/expense-context";
+import { useSelector } from "react-redux";
 
 function App() {
-  const authCtx = useContext(AuthContext);
+ const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
-  const isLoggedIn = authCtx.isLoggedIn;
 
   return (
-    <ExpenseContextProvider>
+    // <ExpenseContextProvider>
       <div className={classes.app}>
         <Header />
         <Switch>
@@ -61,7 +61,7 @@ function App() {
           )}
         </Switch>
       </div>
-    </ExpenseContextProvider>
+    // </ExpenseContextProvider>
   );
 }
 
