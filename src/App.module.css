@@ -1,3 +1,13 @@
 .app{
   background-color: #c9f9e1;
 }
+
+.light-theme {
+  background: white;
+  color: black;
+}
+
+.dark-theme{
+  background: black;
+  color: white;
+}

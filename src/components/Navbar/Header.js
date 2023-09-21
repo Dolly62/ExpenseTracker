@@ -1,15 +1,13 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "../Authentication.js/Logout";
-import AuthContext from "../store/auth-context";
 import classes from "./Header.module.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import Premium from "../Expense/Premium";
 import { useSelector } from "react-redux";
 
 const Header = () => {
   // const authCtx = useContext(AuthContext);
- const isLoggedIn =  useSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   // const isLoggedIn = authCtx.isLoggedIn;
 
@@ -97,59 +95,11 @@ const Header = () => {
                   <Logout />
                 </Nav.Item>
               )}
-              {!isLoggedIn && (
-                <Nav.Item
-                  className="p-2 m-4 mx-3"
-                  style={{
-                    fontSize: "1.3rem",
-                    width: "6rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  <Premium />
-                </Nav.Item>
-              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
     </Fragment>
-
-    // <Fragment>
-    //   <Navbar bg="dark" expand="sm" variant="dark">
-    //     <Container>
-    //       <Navbar.Brand>Expense Tracker</Navbar.Brand>
-    //       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    //       <Navbar.Collapse             id="basic-navbar-nav"
-    //         className="justify-content-center">
-    //         <Nav>
-    //           {isLoggedIn && (
-    //             <Nav.Item>
-    //               <NavLink to="/home">Home</NavLink>
-    //             </Nav.Item>
-    //           )}
-    //           {isLoggedIn && (
-    //             <Nav.Item>
-    //               <NavLink to="/profileData">Profile</NavLink>
-    //             </Nav.Item>
-    //           )}
-    //           {isLoggedIn && <Logout />}
-    //           {isLoggedIn && (
-    //             <Nav.Item>
-    //               Your profile is Incomplete.{" "}
-    //               <NavLink to="/profile">Complete now</NavLink>
-    //             </Nav.Item>
-    //           )}
-    //           {!isLoggedIn && (
-    //             <Nav.Item>
-    //               <NavLink to="/login">Login</NavLink>
-    //             </Nav.Item>
-    //           )}
-    //         </Nav>
-    //       </Navbar.Collapse>
-    //     </Container>
-    //   </Navbar>
-    // </Fragment>
   );
 };
 

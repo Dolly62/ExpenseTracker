@@ -12,14 +12,16 @@ import ForgetPass from "./components/Authentication.js/ForgetPass";
 import ExpenseTracker from "./components/ExpenseTracker/ExpenseTracker";
 // import { ExpenseContextProvider } from "./components/store/expense-context";
 import { useSelector } from "react-redux";
+import Theme from "./components/Navbar/Theme";
 
 function App() {
  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+ const isDark = useSelector(state => state.theme.isDarkTheme);
 
 
   return (
     // <ExpenseContextProvider>
-      <div className={classes.app}>
+      <div className={`${classes.app} ${isDark ? "dark-theme" : "light-theme"}`}>
         <Header />
         <Switch>
           {isLoggedIn && (
@@ -57,6 +59,11 @@ function App() {
           {!isLoggedIn && (
             <Route path="/reset-password">
               <ForgetPass />
+            </Route>
+          )}
+          {isLoggedIn && (
+            <Route path="/theme-toggler">
+              <Theme/>
             </Route>
           )}
         </Switch>

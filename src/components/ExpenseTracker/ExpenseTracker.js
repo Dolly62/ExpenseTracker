@@ -3,6 +3,7 @@ import { expenseActions } from "../store/expense-context";
 import ExpenseList from "./ExpenseList";
 import classes from "./ExpenseTracker.module.css";
 import { useDispatch } from "react-redux";
+import Premium from "../Expense/Premium";
 
 const ExpenseTracker = () => {
   const [spentMoney, setSpentMoney] = useState("");
@@ -116,9 +117,9 @@ const ExpenseTracker = () => {
 
   return (
     <Fragment>
+      <Premium/>
       <section className={classes.container}>
         <h2>Add Your Daily Expense</h2>
-        {}
         <form onSubmit={expenseHandler}>
           {editExpenseName !== null ? (
             <div>
