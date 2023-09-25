@@ -1,11 +1,14 @@
 .navmain{
     width: 100%;
     max-width: 100%;
-    align-items: center;
     background: #00a36a;
     box-shadow: 3px 3px 30px 1px rgb(192, 236, 214);
 }
 
+.navbar{
+    justify-content: center;
+    align-items: center;
+}
 .navbar a {
     text-decoration: none;
     color: rgb(204, 202, 202);

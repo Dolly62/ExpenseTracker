@@ -8,38 +8,40 @@ import Premium from "../Expense/Premium";
 const ExpenseTracker = () => {
   const [spentMoney, setSpentMoney] = useState("");
   const [spentDescription, setSpentDescription] = useState("");
-  const [category, setCategory] = useState("");
-  // const expCtx = useContext(ExpenseContext);
+  const [category, setCategory] = useState("Fruits");
 
   const dispatch = useDispatch();
 
   //For EDIT
   const [editExpenseName, setEditExpenseName] = useState(null);
-  const [editMoney, setEditMoney] = useState("");
-  const [editDescription, setEditDescription] = useState("");
-  const [editCategory, setEditCategory] = useState("");
 
   const editExpenseHandler = (expense) => {
     // console.log(expense.name);
     setEditExpenseName(expense.name);
-    setEditMoney(expense.money);
-    setEditDescription(expense.description);
-    setEditCategory(expense.category);
+    setSpentMoney(expense.spentMoney);
+    setSpentDescription(expense.spentDescription);
+    setCategory(expense.category);
   };
+
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  const formattedDate = `${year}-${month}-${day}  ${hours}:${minutes}:${seconds}`;
+
 
   const expenseHandler = async (event) => {
     event.preventDefault();
     const expenseForm = {
-      id: Math.random().toString(),
-      money: spentMoney,
-      description: spentDescription,
-      category: category,
-    };
-
-    const updatedExpenseForm = {
-      money: editMoney,
-      description: editDescription,
-      category: editCategory,
+      spentMoney,
+      spentDescription,
+      category,
+      at: formattedDate,
     };
 
     try {
@@ -56,42 +58,32 @@ const ExpenseTracker = () => {
         dispatch(
           expenseActions.addExpenses({
             name: data.name,
-            money: spentMoney,
-            description: spentDescription,
-            category: category,
+            spentMoney,
+            spentDescription,
+            category,
+            at: formattedDate
           })
         );
-        // expCtx.addExpenses({
-        //   name: data.name,
-        //   // id: Math.random().toString(),
-        //   money: spentMoney,
-        //   description: spentDescription,
-        //   category: category,
-        // });
       } else {
         const response = await fetch(
           `https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses/${editExpenseName}.json`,
           {
             method: "PUT",
-            body: JSON.stringify(updatedExpenseForm),
+            body: JSON.stringify(expenseForm),
           }
         );
         const data = await response.json();
-        if (editExpenseName !== null) {
-          const updatedExpense = {
+        // console.log(data);
+
+          dispatch(expenseActions.updateExpense({
             name: editExpenseName,
-            money: editMoney,
-            description: editDescription,
-            category: editCategory,
-          };
-          dispatch(expenseActions.addExpenses(updatedExpense));
-        }
-        // expCtx.addExpenses({
-        //   name: editExpenseName,
-        //   money: editMoney,
-        //   description: editDescription,
-        //   category: editCategory,
-        // });
+            spentMoney,
+            spentDescription,
+            category,
+            at: formattedDate,
+          }));
+          setEditExpenseName(null)
+
       }
     } catch (error) {
       alert(error);
@@ -99,14 +91,11 @@ const ExpenseTracker = () => {
 
     setSpentMoney("");
     setSpentDescription("");
-    setCategory("");
-    setEditMoney("");
-    setEditDescription("");
-    setEditCategory("");
+    setCategory("Fruits");
   };
 
   const spentMoneyHandler = (event) => {
-    setSpentMoney(event.target.value);
+      setSpentMoney(event.target.value);
   };
   const spentDescriptionHandler = (event) => {
     setSpentDescription(event.target.value);
@@ -117,67 +106,36 @@ const ExpenseTracker = () => {
 
   return (
     <Fragment>
-      <Premium/>
+      <Premium />
       <section className={classes.container}>
         <h2>Add Your Daily Expense</h2>
         <form onSubmit={expenseHandler}>
-          {editExpenseName !== null ? (
-            <div>
-              <input
-                type="number"
-                placeholder="Enter the money you spent"
-                required
-                value={editMoney}
-                onChange={(e) => setEditMoney(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Description..."
-                required
-                value={editDescription}
-                onChange={(e) => setEditDescription(e.target.value)}
-              />
-              <select
-                name="Category"
-                value={editCategory}
-                onChange={(e) => setEditCategory(e.target.value)}
-              >
-                <option value="Fruits">Fruits</option>
-                <option value="Vegetables">Vegetables</option>
-                <option value="Petrol">Petrol</option>
-                <option value="Health">Health</option>
-                <option value="Drink">Drink</option>
-              </select>
-            </div>
-          ) : (
-            <>
-              <input
-                type="number"
-                placeholder="Enter the money you spent"
-                required
-                value={spentMoney}
-                onChange={spentMoneyHandler}
-              />
-              <input
-                type="text"
-                placeholder="Description..."
-                required
-                value={spentDescription}
-                onChange={spentDescriptionHandler}
-              />
-              <select
-                name="Category"
-                value={category}
-                onChange={categoryChangeHandler}
-              >
-                <option value="fruits">Fruits</option>
-                <option value="vegetables">Vegetables</option>
-                <option value="petrol">Petrol</option>
-                <option value="health">Health</option>
-                <option value="Drink">Drink</option>
-              </select>
-            </>
-          )}
+          <input
+            type="number"
+            placeholder="Enter the money you spent"
+            required
+            value={spentMoney}
+            onChange={spentMoneyHandler}
+          />
+          <input
+            type="text"
+            placeholder="Description..."
+            required
+            value={spentDescription}
+            onChange={spentDescriptionHandler}
+          />
+          <select
+            name="Category"
+            value={category}
+            onChange={categoryChangeHandler}
+          >
+            <option value="Fruits">Fruits</option>
+            <option value="Vegetables">Vegetables</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Health">Health</option>
+            <option value="Drink">Drink</option>
+          </select>
+
           <button type="submit">
             {editExpenseName !== null ? "Save" : "Add Expense"}
           </button>

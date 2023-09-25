@@ -17,9 +17,9 @@ const Header = () => {
         <Container>
           <Navbar.Brand
             href="/"
-            style={{ fontSize: "1.6rem", fontWeight: "bolder", color: "white" }}
+            style={{ fontSize: "1.8rem", fontWeight: "bolder", color: "white" }}
           >
-            Expense Tracker
+            Xpense <span style={{ fontSize: "0.9rem" }}>Tracker</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
@@ -27,11 +27,11 @@ const Header = () => {
             className="justify-content-center"
           >
             <Nav className={classes.navbar}>
-              {isLoggedIn && (
+              {!isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-4 mx-3"
+                  className="p-2 m-2 mx-3"
                   style={{
-                    fontSize: "1.3rem",
+                    fontSize: "1.2rem",
                     width: "6rem",
                     fontWeight: "bold",
                   }}
@@ -43,9 +43,9 @@ const Header = () => {
               )}
               {isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-4 mx-3"
+                  className="p-2 m-2 mx-3"
                   style={{
-                    fontSize: "1.3rem",
+                    fontSize: "1.2rem",
                     width: "6rem",
                     fontWeight: "bold",
                   }}
@@ -57,23 +57,23 @@ const Header = () => {
               )}
               {isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-4 mx-3"
+                  className="p-2 m-2 mx-3"
                   style={{
-                    fontSize: "1.3rem",
+                    fontSize: "1.2rem",
                     width: "6rem",
                     fontWeight: "bold",
                   }}
                 >
-                  <NavLink to="/profileData" activeClassName={classes.active}>
+                  <NavLink to="/profile" activeClassName={classes.active}>
                     Profile
                   </NavLink>
                 </Nav.Item>
               )}
               {!isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-4 mx-3"
+                  className="p-2 m-2 mx-3"
                   style={{
-                    fontSize: "1.3rem",
+                    fontSize: "1.2rem",
                     width: "6rem",
                     fontWeight: "bold",
                   }}
@@ -83,18 +83,7 @@ const Header = () => {
                   </NavLink>
                 </Nav.Item>
               )}
-              {isLoggedIn && (
-                <Nav.Item
-                  className="p-2 m-4 mx-3"
-                  style={{
-                    fontSize: "1.3rem",
-                    width: "6rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  <Logout />
-                </Nav.Item>
-              )}
+              {isLoggedIn && <Logout />}
             </Nav>
           </Navbar.Collapse>
         </Container>

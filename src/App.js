@@ -1,30 +1,33 @@
 import Auth from "./components/Authentication.js/Auth";
-// import { useContext } from "react";
 import Expense from "./components/Expense/Expense";
-// import AuthContext from "./components/store/auth-context";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import Profile from "./components/Expense/Profile";
 import EmailVer from "./components/Authentication.js/EmailVer";
 import Header from "./components/Navbar/Header";
-import ProfileLink from "./components/Expense/ProfileLink";
 import classes from "./App.module.css";
 import ForgetPass from "./components/Authentication.js/ForgetPass";
 import ExpenseTracker from "./components/ExpenseTracker/ExpenseTracker";
-// import { ExpenseContextProvider } from "./components/store/expense-context";
-import { useSelector } from "react-redux";
-import Theme from "./components/Navbar/Theme";
+import { useDispatch, useSelector } from "react-redux";
+import Theme from "./components/UI/Theme";
+import { useEffect } from "react";
+import { fetchExpenseData } from "./components/store/expenseActions";
 
 function App() {
  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
  const isDark = useSelector(state => state.theme.isDarkTheme);
+const dispatch =  useDispatch();
+
+
+ useEffect(() => {
+    dispatch(fetchExpenseData());
+ }, [])
 
 
   return (
-    // <ExpenseContextProvider>
-      <div className={`${classes.app} ${isDark ? "dark-theme" : "light-theme"}`}>
+      <div className={classes.app} >
         <Header />
         <Switch>
-          {isLoggedIn && (
+          {!isLoggedIn && (
             <Route path="/home">
               <Expense />
             </Route>
@@ -39,11 +42,6 @@ function App() {
           {!isLoggedIn && (
             <Route path="/login">
               <Auth />
-            </Route>
-          )}
-          {isLoggedIn && (
-            <Route path="/profileData">
-              <ProfileLink />
             </Route>
           )}
           {isLoggedIn && (
@@ -68,7 +66,6 @@ function App() {
           )}
         </Switch>
       </div>
-    // </ExpenseContextProvider>
   );
 }
 

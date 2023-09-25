@@ -6,14 +6,19 @@ const Theme = () => {
     const isDark = useSelector(state => state.theme.isDarkTheme);
     const dispatch = useDispatch();
 
+
     const toggleThemeHandler = () => {
         dispatch(themeActions.toggleTheme())
     }
 
+    const mainTheme = isDark ? 'dark-theme' : 'light-theme';
+
   return (
+    <div className={mainTheme}>
     <button onClick={toggleThemeHandler}>
       {isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
     </button>
+    </div>
   )
 }
 

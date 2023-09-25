@@ -56,7 +56,8 @@ const Auth = () => {
       }
       const data = await response.json();
       // console.log(data.idToken);
-      dispatch(authActions.login({token: data.idToken}));
+      localStorage.setItem("idToken", data.idToken)
+      dispatch(authActions.login({token: localStorage.getItem("idToken")}));
 
       history.push("/email-Verification");
     } catch (error) {

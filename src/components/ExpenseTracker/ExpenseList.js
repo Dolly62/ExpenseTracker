@@ -1,48 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { expenseActions } from "../store/expense-context";
 import { useDispatch, useSelector } from "react-redux";
-// import AuthContext from "../store/auth-context";
 import classes from "./ExpenseList.module.css";
 import { Col, Row, Table } from "react-bootstrap";
 
 const ExpenseList = (props) => {
   const dispatch = useDispatch();
-  const expenses = useSelector((state) => state.expenses.items);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const items = useSelector((state) => state.expenses.items);
 
-  const totalAmount = (expenses || []).reduce((total, item) => {
-    const itemMoney = parseFloat(item.money);
-    return total + itemMoney;
+  const totalAmount = (items || []).reduce((total, item) => {
+    return total + parseFloat(item.spentMoney);
   }, 0);
 
-  // const fetchExpensesHandler = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses.json"
-  //     );
-  //     const data = await response.json();
-  //     console.log(data);
-  //     console.log(data.key);
-  //     if(data){
-  //       const expenseItems = Object.keys(data).map((key) => ({
-  //         name: key,
-  //         id: data[key].id,
-  //         money: data[key].money,
-  //         description: data[key].description,
-  //         category: data[key].category,
-  //       }))
-  //       dispatch(expenseActions.addExpenses(expenseItems));
-  //     }
-  //   } catch (error) {
-  //     alert(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if(isLoggedIn){
-  //     fetchExpensesHandler()
-  //   }
-  // }, [isLoggedIn])
 
   const deleteExpense = async (name) => {
     try {
@@ -62,12 +31,13 @@ const ExpenseList = (props) => {
       alert(error.message);
     }
   };
+  
 
   const downloadCSV = () => {
     const headers = ["Name", "Money", "Description", "Category"];
     const csvData = [headers];
 
-    expenses.forEach((expense) => {
+    items.forEach((expense) => {
       const row = [expense.money, expense.description, expense.category];
       csvData.push(row);
     });
@@ -101,38 +71,46 @@ const ExpenseList = (props) => {
             <th>Money</th>
             <th>Description</th>
             <th>Category</th>
+            <th>Date/Time</th>
           </tr>
         </thead>
         <tbody>
-          {expenses && expenses.length > 0 ? (
-            expenses.map((expense) => (
-              <tr key={expense.name}>
+          {items && items.length > 0 ? (
+            items.map((expense) => (
+              <tr key={expense.name} id={expense.id}>
                 <td>
-                {expense.money}
+                {expense.spentMoney}
                 </td>
                 <td>
-                {expense.description}
+                {expense.spentDescription}
                 </td>
                 <td>
                 {expense.category}
                 </td>
                 <td>
-                  <button onClick={() => props.onEdit(expense)}>Edit</button>
-                  <button onClick={() => deleteExpense(expense.name)}>
+                {expense.at}
+                </td>
+                <td>
+                  <button className={classes.editBtn} onClick={() => props.onEdit(expense)} >Edit</button>
+                  <button className={classes.delBtn} onClick={() => deleteExpense(expense.name)}>
                     Delete
                   </button>
                 </td>
               </tr>
             ))
           ) : (
-            <p>No Expense is found</p>
+            <tr>
+              <td>No Expense is found</td>
+            </tr>
           )}
         </tbody>
-      </Table>
+        <tfoot>
       <tr>
         <td>Total Amount:</td>
         <td>Rs.{totalAmount.toFixed(2)}</td>
       </tr>
+        </tfoot>
+      </Table>
     </section>
   );
 };

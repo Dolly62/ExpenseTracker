@@ -1,0 +1,43 @@
+.profileMain{
+    width: 400px;
+}
+
+.profileMain form{
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+}
+
+.profileMain label{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.profileMain form input{
+    margin: 14px auto;
+    width: 70%;
+    max-width: 100%;
+    height: 5vh;
+    border: 2px solid #00a36a;
+    border-radius: 8px;
+    font-size: 90%;
+    padding: 6px;
+    font-size: 1.2rem;
+}
+
+.profileMain form button{
+    width: 50%;
+    margin: 15px auto;
+    height: 5vh;
+    border: none;
+    border-radius: 6px;
+    background: #00a36a;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.profileMain form button:hover{
+    background: rgb(59, 155, 59)
+}

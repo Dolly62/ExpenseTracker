@@ -1,3 +1,28 @@
+.expenseData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 550px;
+}
+
+
+.editBtn{
+   border: none;
+   border-radius: 6px;
+   background: #00a36a;
+   color: white;
+   padding: 0.3rem;
+   margin: 5px;
+}
+
+.delBtn{
+    border: none;
+    border-radius: 6px;
+    background: #d70202;
+    color: white;
+    padding: 0.3rem; 
+}
+
 .downloadBtn{
     border: none;
     border-radius: 6px;
@@ -5,4 +30,6 @@
     color: white;
     font-weight: bold;
     padding: 0.4rem;
+    width: 40%;
+    margin: 5px auto;
 }

@@ -14,7 +14,7 @@ const Premium = () => {
     const history = useHistory();
 
     useEffect(() => {
-      if(total > 50){
+      if(total > 5000){
         setIsPremium(true)
       }else{
         setIsPremium(false)

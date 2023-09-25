@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import classes from "./Profile.module.css";
 
 const Profile = () => {
   const [enteredFullName, setFullName] = useState("");
   const [profileImg, setProfileImg] = useState("");
   const [success, setSuccess] = useState(false);
-  // const authCtx = useContext(AuthContext);
-  // const idtoken = authCtx.token;
-  // console.log(idtoken);
 
   const idtoken = useSelector(state => state.auth.token);
   // console.log(idtoken);
 
   
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-
-  // const isLoggedIn = authCtx.isLoggedIn;
 
   const updateProfileHandler = async (event) => {
     event.preventDefault();
@@ -52,8 +48,6 @@ const Profile = () => {
         setSuccess(false);
       }, 2000);
     }
-    // setFullName("");
-    // setProfileImg("")
   };
 
   const fetchDataHandler = async () => {
@@ -101,7 +95,7 @@ const Profile = () => {
     setProfileImg(event.target.value);
   };
   return (
-    <section>
+    <section className={classes.profileMain}>
       <h2>Contact Details</h2>
       <form onSubmit={updateProfileHandler}>
         <label htmlFor="fullname">Full Name:</label>

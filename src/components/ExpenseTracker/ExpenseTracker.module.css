@@ -1,3 +1,7 @@
+.container{
+    width: 550px;
+}
+
 .container form{
     display: flex;
     flex-direction: column;
@@ -39,4 +43,8 @@
     font-weight: bold;
     font-size: 1.2em;
     cursor: pointer;
+}
+
+.container form button:hover{
+    background: rgb(59, 155, 59)
 }
