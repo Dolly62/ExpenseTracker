@@ -27,7 +27,7 @@ const Header = () => {
             className="justify-content-center"
           >
             <Nav className={classes.navbar}>
-              {!isLoggedIn && (
+              {isLoggedIn && (
                 <Nav.Item
                   className="p-2 m-2 mx-3"
                   style={{

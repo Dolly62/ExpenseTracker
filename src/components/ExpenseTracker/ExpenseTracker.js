@@ -106,7 +106,6 @@ const ExpenseTracker = () => {
 
   return (
     <Fragment>
-      <Premium />
       <section className={classes.container}>
         <h2>Add Your Daily Expense</h2>
         <form onSubmit={expenseHandler}>

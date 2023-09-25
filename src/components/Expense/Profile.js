@@ -67,7 +67,7 @@ const Profile = () => {
       // console.log(response.status);
       if (!response.ok) {
         const data = await response.json();
-        throw new Error("Failed to get");
+        throw new Error(data.error.message);
       }
       const data = await response.json();
       // console.log(data);

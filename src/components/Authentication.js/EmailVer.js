@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import classes from "./EmailVer.module.css";
 import { useSelector } from "react-redux";
@@ -6,11 +6,23 @@ import { useSelector } from "react-redux";
 const EmailVer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const idtoken = useSelector(state => state.auth.token);
+
+  const [verificationSent, sentVerificationSent] = useState(false);
   // console.log(idtoken);
 
-  
-
   const history = useHistory();
+
+
+  useEffect(() => {
+    if(idtoken){
+      sentVerificationSent(true);
+      setTimeout(() => {
+        history.push("/expense");
+      }, 2000)
+    }
+  }, [idtoken])
+
+
 
   const emailVerificationHandler = async () => {
     setIsLoading(true);
@@ -35,9 +47,10 @@ const EmailVer = () => {
         throw new Error(data.error.message);
       }
       const data = await response.json();
+      sentVerificationSent(true);
       // console.log(data.email);
       // alert("Verification email sent successfully");
-      history.replace("./home");
+      
     } catch (error) {
       alert(error.message);
     } finally {
@@ -48,9 +61,11 @@ const EmailVer = () => {
   return (
     <React.Fragment>
       <section>
+        {verificationSent ? (<p>Verification email sent! Please check your inbox.</p>) : (
           <button className={classes.btn} onClick={emailVerificationHandler} disabled={isLoading}>
             {isLoading ? "Sending..." : "Send Verification Email"}
           </button>
+        )}
       </section>
     </React.Fragment>
   );

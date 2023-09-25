@@ -4,17 +4,15 @@ import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import Profile from "./components/Expense/Profile";
 import EmailVer from "./components/Authentication.js/EmailVer";
 import Header from "./components/Navbar/Header";
-import classes from "./App.module.css";
 import ForgetPass from "./components/Authentication.js/ForgetPass";
 import ExpenseTracker from "./components/ExpenseTracker/ExpenseTracker";
 import { useDispatch, useSelector } from "react-redux";
 import Theme from "./components/UI/Theme";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { fetchExpenseData } from "./components/store/expenseActions";
 
 function App() {
  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
- const isDark = useSelector(state => state.theme.isDarkTheme);
 const dispatch =  useDispatch();
 
 
@@ -24,10 +22,10 @@ const dispatch =  useDispatch();
 
 
   return (
-      <div className={classes.app} >
+    <Fragment>
         <Header />
         <Switch>
-          {!isLoggedIn && (
+          {isLoggedIn && (
             <Route path="/home">
               <Expense />
             </Route>
@@ -65,7 +63,7 @@ const dispatch =  useDispatch();
             </Route>
           )}
         </Switch>
-      </div>
+        </Fragment>
   );
 }
 
