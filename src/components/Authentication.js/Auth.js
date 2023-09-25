@@ -117,10 +117,14 @@ const Auth = () => {
           </button>
         )}
         {isLoading && <p>Loading...</p>}
+
+
         {isLogin && <Password/>}
+
+        
         <button className={classes.modeBtn} onClick={switchAuthModeHandler}>
           {isLogin
-            ? "Don't have an account? SignUp "
+            ? "Don't have an account? SignUp"
             : "Have an account? LogIn"}
         </button>
       </form>

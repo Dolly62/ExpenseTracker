@@ -12,7 +12,7 @@ const Password = () => {
   return (
     <Fragment>
       <button className={classes.passsty} onClick={passwordForgetHandler}>
-        Forget Passwod
+        Forget Password
       </button>
     </Fragment>
   );
