@@ -8,8 +8,8 @@ const ExpenseTracker = () => {
   const [spentMoney, setSpentMoney] = useState("");
   const [spentDescription, setSpentDescription] = useState("");
   const [category, setCategory] = useState("Fruits");
-  const email = useSelector(state => state.auth.email);
-  const emailId = email.replace(/[@.]/g, "");
+  const email = useSelector((state) => state.auth.email);
+  
   // console.log(email);
 
   const dispatch = useDispatch();
@@ -27,18 +27,18 @@ const ExpenseTracker = () => {
 
   const date = new Date();
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
 
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
 
   const formattedDate = `${year}-${month}-${day}  ${hours}:${minutes}:${seconds}`;
 
-
   const expenseHandler = async (event) => {
     event.preventDefault();
+    const emailId = email.replace(/[@.]/g, "");
     const expenseForm = {
       spentMoney,
       spentDescription,
@@ -64,7 +64,7 @@ const ExpenseTracker = () => {
             spentMoney,
             spentDescription,
             category,
-            at: formattedDate
+            at: formattedDate,
           })
         );
       } else {
@@ -78,15 +78,16 @@ const ExpenseTracker = () => {
         const data = await response.json();
         // console.log(data);
 
-          dispatch(expenseActions.updateExpense({
+        dispatch(
+          expenseActions.updateExpense({
             name: editExpenseName,
             spentMoney,
             spentDescription,
             category,
             at: formattedDate,
-          }));
-          setEditExpenseName(null)
-
+          })
+        );
+        setEditExpenseName(null);
       }
     } catch (error) {
       alert(error);
@@ -98,7 +99,7 @@ const ExpenseTracker = () => {
   };
 
   const spentMoneyHandler = (event) => {
-      setSpentMoney(event.target.value);
+    setSpentMoney(event.target.value);
   };
   const spentDescriptionHandler = (event) => {
     setSpentDescription(event.target.value);
@@ -114,13 +115,15 @@ const ExpenseTracker = () => {
         <form onSubmit={expenseHandler}>
           <input
             type="number"
-            placeholder="Enter the money you spent"
+            id="money"
+            placeholder="Enter the amount you spent"
             required
             value={spentMoney}
             onChange={spentMoneyHandler}
           />
           <input
             type="text"
+            id="description"
             placeholder="Description..."
             required
             value={spentDescription}
@@ -128,14 +131,16 @@ const ExpenseTracker = () => {
           />
           <select
             name="Category"
+            id="category"
             value={category}
             onChange={categoryChangeHandler}
           >
             <option value="Fruits">Fruits</option>
             <option value="Vegetables">Vegetables</option>
             <option value="Petrol">Petrol</option>
-            <option value="Health">Health</option>
+            <option value="Medicine">Medicine</option>
             <option value="Drink">Drink</option>
+            <option value="Grocery">Grocery</option>
           </select>
 
           <button type="submit">

@@ -35,6 +35,9 @@ const expensesSlice = createSlice({
         state.total -= expenseToRemove.spentMoney;
       }
     },
+    clearExpense(state) {
+      state.items = []
+    },
   },
 });
 

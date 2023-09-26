@@ -9,7 +9,7 @@ const Expense = () => {
   return (
     <div className={classes.main}>
       <h1>Welcome to Expense Tracker</h1>
-      {/* <img src={expenseImg}/> */}
+      <img src={expenseImg}/>
     </div>
   );
 };

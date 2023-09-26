@@ -85,7 +85,7 @@ const Auth = () => {
 
   return (
     <section>
-      <h1 className={classes.heading}>{isLogin ? "Login" : "Sign Up"}</h1>
+      <h1 className={classes.heading}>{isLogin ? "Welcome Again!" : "Welcome!"}</h1>
       <form onSubmit={submitHandler} className={classes.form}>
         <input
           type="email"
@@ -120,10 +120,7 @@ const Auth = () => {
         )}
         {isLoading && <p>Loading...</p>}
 
-
         {isLogin && <Password/>}
-
-
         <button className={classes.modeBtn} onClick={switchAuthModeHandler}>
           {isLogin
             ? "Don't have an account? SignUp"

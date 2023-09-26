@@ -1,14 +1,12 @@
 .logoutBtn{
     border: none;
-    border-radius: 10px;
+    border-radius: 15px;
     background: none;
     color: white;
-    padding: 8px auto ;
-    margin: 12px auto;
     height: 5vh;
-    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .logoutBtn:hover{
-    background-color: #09653f;
+    background-color: #031e74;
 }

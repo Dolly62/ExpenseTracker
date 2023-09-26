@@ -49,6 +49,8 @@ function App() {
   useEffect(() => {
     if(isLoggedIn){
       fetchExpenseData();
+    }else{
+      dispatch(expenseActions.clearExpense());
     }
   }, [isLoggedIn]);
 
@@ -56,11 +58,9 @@ function App() {
     <div className={`App ${isDarkTheme ? "dark-theme" : ""}`}>
       <Header />
       <Switch>
-        {isLoggedIn && (
           <Route path="/home">
             <Expense />
           </Route>
-        )}
 
         {isLoggedIn && (
           <Route path="/expense">
@@ -88,11 +88,6 @@ function App() {
             <ForgetPass />
           </Route>
         )}
-
-          {/* <Route path="/theme-toggler">
-            <Theme />
-          </Route> */}
-
       </Switch>
     </div>
   );

@@ -28,27 +28,23 @@ const Header = () => {
             className="justify-content-center"
           >
             <Nav className={classes.navbar}>
-              {isLoggedIn && (
                 <Nav.Item
                   className="p-2 m-1 mx-2"
                   style={{
                     fontSize: "1.2rem",
                     width: "6rem",
-                    fontWeight: "bold",
                   }}
                 >
                   <NavLink to="/home" activeClassName={classes.active}>
                     Home
                   </NavLink>
                 </Nav.Item>
-              )}
               {isLoggedIn && (
                 <Nav.Item
                   className="p-2 m-1 mx-2"
                   style={{
                     fontSize: "1.2rem",
                     width: "6rem",
-                    fontWeight: "bold",
                   }}
                 >
                   <NavLink to="/expense" activeClassName={classes.active}>
@@ -62,7 +58,6 @@ const Header = () => {
                   style={{
                     fontSize: "1.2rem",
                     width: "6rem",
-                    fontWeight: "bold",
                   }}
                 >
                   <NavLink to="/profile" activeClassName={classes.active}>
@@ -76,7 +71,6 @@ const Header = () => {
                   style={{
                     fontSize: "1.2rem",
                     width: "6rem",
-                    fontWeight: "bold",
                   }}
                 >
                   <NavLink to="/login" activeClassName={classes.active}>

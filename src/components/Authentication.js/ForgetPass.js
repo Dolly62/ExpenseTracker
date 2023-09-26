@@ -50,6 +50,7 @@ const ForgetPass = () => {
           <p>Enter the email with which you have registered:</p>
           <input
             type="email"
+            id="Email"
             placeholder="Enter your email"
             value={emailForPassword}
             onChange={emailHandler}

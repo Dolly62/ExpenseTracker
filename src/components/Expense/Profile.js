@@ -96,12 +96,13 @@ const Profile = () => {
   };
   return (
     <section className={classes.profileMain}>
-      <h2>Contact Details</h2>
+      <h2>Profile</h2>
       <form onSubmit={updateProfileHandler}>
         <label htmlFor="fullname">Full Name:</label>
         <input
           type="text"
           id="fullname"
+          placeholder="Full Name"
           required
           value={enteredFullName}
           onChange={fullNameHandler}
@@ -115,7 +116,7 @@ const Profile = () => {
           onChange={profileImgHandler}
         />
         <button type="submit">Update</button>
-        {success && (<Alert variant="success" className="mt-3">Successfully Updated!</Alert>)}
+         {success &&(<Alert variant="success" style={{ background: "none", border: "none", color: "green"}}>Successfully Updated!</Alert>)}
       </form>
     </section>
   );

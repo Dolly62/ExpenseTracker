@@ -28,7 +28,7 @@ describe("Auth component", () => {
     })
 
     //Assert
-        const changedElement = screen.getByText("Login", {exact: false});
+        const changedElement = screen.getByText("Welcome!", {exact: false});
         expect(changedElement).toBeInTheDocument();
   });
 

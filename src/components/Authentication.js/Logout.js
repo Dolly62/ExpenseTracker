@@ -3,6 +3,7 @@ import { authActions } from "../store/auth-context";
 import { useHistory } from "react-router-dom";
 import classes from "./Logout.module.css";
 import { useDispatch } from "react-redux";
+import { MdLogout } from "react-icons/md";
 
 const Logout = () => {
   // const authCtx = useContext(AuthContext);
@@ -18,7 +19,7 @@ const Logout = () => {
   };
   return (
     <button className={classes.logoutBtn} onClick={logoutHandler}>
-      Logout
+      <MdLogout title="Logout"/>
     </button>
   );
 };

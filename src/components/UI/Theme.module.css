@@ -4,13 +4,15 @@
     border-radius: 15px;
     background: none;
     color: white;
-    padding: 8px auto ;
-    margin: 12px auto;
     height: 5vh;
-    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .dark{
     color: black;
     background: white;
+}
+
+.light{
+    background: #aebbe5;
 }

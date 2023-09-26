@@ -5,31 +5,41 @@
     width: 550px;
 }
 
+.expenseData h3{
+    color: #d67d2a;
+}
 
 .editBtn{
    border: none;
-   border-radius: 6px;
-   background: #00a36a;
-   color: white;
-   padding: 0.3rem;
-   margin: 5px;
+   background: none;
+   color: green;
+   font-size: 1.2rem;
+   padding: 0.1rem;
 }
 
 .delBtn{
     border: none;
-    border-radius: 6px;
-    background: #d70202;
-    color: white;
-    padding: 0.3rem; 
+    background: none;
+    color: red;
+    font-size: 1.4rem;
+    padding: 0.1rem; 
 }
 
 .downloadBtn{
     border: none;
-    border-radius: 6px;
-    background-color: rgb(58, 247, 184);
-    color: white;
-    font-weight: bold;
-    padding: 0.4rem;
-    width: 40%;
-    margin: 5px auto;
+    background: none;
+    color:  #8ea7fa;
+    font-size: 1.8rem;
+}
+
+.footer{
+    color: green;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.footer span{
+    padding: 9px;
+    font-size: 1rem;
+    font-weight: lighter;
 }
