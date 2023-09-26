@@ -4,6 +4,7 @@ import Logout from "../Authentication.js/Logout";
 import classes from "./Header.module.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import Theme from "../UI/Theme";
 
 const Header = () => {
   // const authCtx = useContext(AuthContext);
@@ -17,9 +18,9 @@ const Header = () => {
         <Container>
           <Navbar.Brand
             href="/"
-            style={{ fontSize: "1.8rem", fontWeight: "bolder", color: "white" }}
+            style={{ fontSize: "1.6rem", fontWeight: "bolder", color: "white" }}
           >
-            Xpense <span style={{ fontSize: "0.9rem" }}>Tracker</span>
+            Xpense <span style={{ fontSize: "0.7rem" }}>Tracker</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
@@ -29,7 +30,7 @@ const Header = () => {
             <Nav className={classes.navbar}>
               {isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-2 mx-3"
+                  className="p-2 m-1 mx-2"
                   style={{
                     fontSize: "1.2rem",
                     width: "6rem",
@@ -43,7 +44,7 @@ const Header = () => {
               )}
               {isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-2 mx-3"
+                  className="p-2 m-1 mx-2"
                   style={{
                     fontSize: "1.2rem",
                     width: "6rem",
@@ -57,7 +58,7 @@ const Header = () => {
               )}
               {isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-2 mx-3"
+                  className="p-2 m-1 mx-2"
                   style={{
                     fontSize: "1.2rem",
                     width: "6rem",
@@ -71,7 +72,7 @@ const Header = () => {
               )}
               {!isLoggedIn && (
                 <Nav.Item
-                  className="p-2 m-2 mx-3"
+                  className="p-2 m-1 mx-2"
                   style={{
                     fontSize: "1.2rem",
                     width: "6rem",
@@ -84,6 +85,11 @@ const Header = () => {
                 </Nav.Item>
               )}
               {isLoggedIn && <Logout />}
+              <Nav.Item
+                  className="p-2 m-1 mx-2"
+                >
+              <Theme />
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Container>

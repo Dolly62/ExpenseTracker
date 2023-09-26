@@ -1,0 +1,16 @@
+
+.btn{
+    border: none;
+    border-radius: 15px;
+    background: none;
+    color: white;
+    padding: 8px auto ;
+    margin: 12px auto;
+    height: 5vh;
+    font-weight: bold;
+}
+
+.dark{
+    color: black;
+    background: white;
+}

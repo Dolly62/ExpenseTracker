@@ -2,13 +2,15 @@ import React, { useState, Fragment } from "react";
 import { expenseActions } from "../store/expense-context";
 import ExpenseList from "./ExpenseList";
 import classes from "./ExpenseTracker.module.css";
-import { useDispatch } from "react-redux";
-import Premium from "../Expense/Premium";
+import { useDispatch, useSelector } from "react-redux";
 
 const ExpenseTracker = () => {
   const [spentMoney, setSpentMoney] = useState("");
   const [spentDescription, setSpentDescription] = useState("");
   const [category, setCategory] = useState("Fruits");
+  const email = useSelector(state => state.auth.email);
+  const emailId = email.replace(/[@.]/g, "");
+  // console.log(email);
 
   const dispatch = useDispatch();
 
@@ -45,9 +47,10 @@ const ExpenseTracker = () => {
     };
 
     try {
+      // console.log(email);
       if (editExpenseName === null) {
         const response = await fetch(
-          "https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses.json",
+          `https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses/${emailId}.json`,
           {
             method: "POST",
             body: JSON.stringify(expenseForm),
@@ -66,7 +69,7 @@ const ExpenseTracker = () => {
         );
       } else {
         const response = await fetch(
-          `https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses/${editExpenseName}.json`,
+          `https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses/${emailId}/${editExpenseName}.json`,
           {
             method: "PUT",
             body: JSON.stringify(expenseForm),

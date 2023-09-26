@@ -7,6 +7,8 @@ import { Col, Row, Table } from "react-bootstrap";
 const ExpenseList = (props) => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.expenses.items);
+  const email = useSelector(state => state.auth.email);
+  const emailId = email.replace(/[@.]/g, "");
 
   const totalAmount = (items || []).reduce((total, item) => {
     return total + parseFloat(item.spentMoney);
@@ -16,7 +18,7 @@ const ExpenseList = (props) => {
   const deleteExpense = async (name) => {
     try {
       const response = await fetch(
-        `https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses/${name}.json`,
+        `https://expense-tracker-f3a04-default-rtdb.firebaseio.com/expenses/${emailId}/${name}.json`,
         {
           method: "DELETE",
         }

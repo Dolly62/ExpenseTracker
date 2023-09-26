@@ -56,8 +56,10 @@ const Auth = () => {
       }
       const data = await response.json();
       // console.log(data.idToken);
-      localStorage.setItem("idToken", data.idToken)
-      dispatch(authActions.login({token: localStorage.getItem("idToken")}));
+      // console.log(data.email);
+      localStorage.setItem("idToken", data.idToken);
+      localStorage.setItem("email", data.email);
+      dispatch(authActions.login({token: localStorage.getItem("idToken"), email: localStorage.getItem("email")}));
 
       history.push("/email-Verification");
     } catch (error) {
@@ -121,7 +123,7 @@ const Auth = () => {
 
         {isLogin && <Password/>}
 
-        
+
         <button className={classes.modeBtn} onClick={switchAuthModeHandler}>
           {isLogin
             ? "Don't have an account? SignUp"

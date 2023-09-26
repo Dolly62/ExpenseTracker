@@ -13,6 +13,7 @@ const Logout = () => {
     // authCtx.logout();
     dispatch(authActions.logout());
     localStorage.removeItem("idToken");
+    localStorage.removeItem("email");
     history.replace("/login");
   };
   return (
