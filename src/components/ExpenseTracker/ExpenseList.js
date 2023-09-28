@@ -36,11 +36,11 @@ const ExpenseList = (props) => {
   };
 
   const downloadCSV = () => {
-    const headers = ["Name", "Money", "Description", "Category"];
+    const headers = ["Name", "Amount", "Description", "Category", "at"];
     const csvData = [headers];
 
     items.forEach((expense) => {
-      const row = [expense.money, expense.description, expense.category];
+      const row = [expense.spentMoney, expense.spentDescription, expense.category, expense.at];
       csvData.push(row);
     });
 

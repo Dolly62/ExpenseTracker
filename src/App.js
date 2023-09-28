@@ -1,22 +1,25 @@
+import React from "react";
 import Auth from "./components/Authentication.js/Auth";
 import Expense from "./components/Expense/Expense";
-import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import Profile from "./components/Expense/Profile";
 import EmailVer from "./components/Authentication.js/EmailVer";
 import Header from "./components/Navbar/Header";
 import ForgetPass from "./components/Authentication.js/ForgetPass";
-import ExpenseTracker from "./components/ExpenseTracker/ExpenseTracker";
 import { useDispatch, useSelector } from "react-redux";
-import "./App.css"
+import "./App.css";
 import { useEffect } from "react";
 import { expenseActions } from "./components/store/expense-context";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isDarkTheme = useSelector(state => state.theme.isDarkTheme);
+  const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
   const dispatch = useDispatch();
   const email = useSelector((state) => state.auth.email);
   // console.log(email);
+
+
+const ExpenseTracker = React.lazy(() => import("./components/ExpenseTracker/ExpenseTracker"));
 
   // FETCH THE DATA
   const fetchExpenseData = async () => {
@@ -47,9 +50,9 @@ function App() {
   };
 
   useEffect(() => {
-    if(isLoggedIn){
+    if (isLoggedIn) {
       fetchExpenseData();
-    }else{
+    } else {
       dispatch(expenseActions.clearExpense());
     }
   }, [isLoggedIn]);
@@ -58,26 +61,26 @@ function App() {
     <div className={`App ${isDarkTheme ? "dark-theme" : ""}`}>
       <Header />
       <Switch>
-          <Route path="/home">
-            <Expense />
-          </Route>
+        <Route path="/home">
+          <Expense />
+        </Route>
 
-        {isLoggedIn && (
-          <Route path="/expense">
-            <ExpenseTracker />
-          </Route>
-        )}
+        <Route path="/expense">
+          <React.Suspense fallback={<div className="mx-auto">Loading...</div>}>
+          {isLoggedIn && <ExpenseTracker />}
+          </React.Suspense>
+          {!isLoggedIn && <Redirect to="/login" />}
+        </Route>
 
         {!isLoggedIn && (
           <Route path="/login">
             <Auth />
           </Route>
         )}
-        {isLoggedIn && (
-          <Route path="/profile">
-            <Profile />
-          </Route>
-        )}
+        <Route path="/profile">
+          {isLoggedIn && <Profile />}
+          {!isLoggedIn && <Redirect to="/login" />}
+        </Route>
         {isLoggedIn && (
           <Route path="/email-Verification">
             <EmailVer />
