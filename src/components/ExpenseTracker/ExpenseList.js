@@ -40,7 +40,12 @@ const ExpenseList = (props) => {
     const csvData = [headers];
 
     items.forEach((expense) => {
-      const row = [expense.spentMoney, expense.spentDescription, expense.category, expense.at];
+      const row = [
+        expense.spentMoney,
+        expense.spentDescription,
+        expense.category,
+        expense.at,
+      ];
       csvData.push(row);
     });
 
@@ -67,7 +72,7 @@ const ExpenseList = (props) => {
           <h3>Day-to-Day Expenses</h3>
         </Col>
       </Row>
-      <Table>
+      <Table responsive>
         <thead style={{ borderBottom: "white" }}>
           <tr>
             <th style={{ color: "#e29247" }}>Money</th>
@@ -110,10 +115,12 @@ const ExpenseList = (props) => {
           )}
         </tbody>
       </Table>
-      <div className={classes.footer}>
-        Total Amount:
-        <span>Rs.{totalAmount.toFixed(2)}</span>
-      </div>
+      <Row>
+        <Col className={classes.footer}>
+          Total Amount:
+          <span>Rs.{totalAmount.toFixed(2)}</span>
+        </Col>
+      </Row>
     </section>
   );
 };
